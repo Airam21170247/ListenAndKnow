@@ -36,36 +36,37 @@
 
 
 
-  //STARTS DATABASE.
+ //STARTS DATABASE
 
-    const lista = document.getElementById("lista");
+// 🔹 Cargar datos
+async function cargar() {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+  const querySnapshot = await getDocs(collection(database, "numeros"));
+  querySnapshot.forEach(docu => {
+    const data = docu.data();
+    lista.innerHTML += `<h2>${data.Susja}</h2>
+      <button onclick="borrar('${docu.id}')">Borrar</button>`;
+  });
+}
 
-    // 🔹 Cargar datos
-    async function cargar() {
-      lista.innerHTML = "";
-      const querySnapshot = await getDocs(collection(database, "numeros"));
-      querySnapshot.forEach(docu => {
-        const data = docu.data();
-        lista.innerHTML += `<article>${data.Susja}</article>`;
-      });
-    }
+// 🔹 Agregar persona
+async function agregar() {
+  let Susja = document.getElementById("Susja").value;
+  if (!Susja) return alert("Escribe un número");
+  await addDoc(collection(database, "numeros"), { Susja });
+  cargar();
+}
 
-    // 🔹 Agregar persona
-    async function add() {
-      let Susja = document.getElementById("Susja").value;
-      await addDoc(collection(database, "numeros"), { Susja });
-      cargar();
-    }
+// 🔹 Borrar persona
+async function borrar(id) {
+  await deleteDoc(doc(database, "numeros", id));
+  cargar();
+}
 
-    // 🔹 Borrar persona
-    async function borrar(id) {
-      await deleteDoc(doc(database, "numeros", id));
-      cargar();
-    }
+// Hacer funciones accesibles desde el HTML
+window.agregar = agregar;
+window.borrar = borrar;
 
-    // Hacer funciones accesibles desde el HTML
-    window.agregar = agregar;
-    window.borrar = borrar;
-
-    // Cargar al inicio
-    cargar();
+// Cargar al inicio
+cargar();
