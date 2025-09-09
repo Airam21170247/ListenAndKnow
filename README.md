@@ -1,2 +1,8 @@
 # ListenAndKnow
 This repository is about an android aplication that recognize notification push of the smarthphone (Android) and send that notification's information to PC that receive the information and show like a push notification in the screen for the user.
+
+Codes Explication:
+-After 22:00 hrs, python program killself.
+-Do not receive notification for app that it's name have "music". (Can modificated)
+-Can receive notification for Whatsapp, Gmail, Telegram, Facebook, Instagram, and others. (Can modificated)
+-Messeges(Notification) are encryptated.
