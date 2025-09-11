@@ -6,6 +6,8 @@ Codes Explication:
 -Do not receive notification for app that it's name have "music". (Can modificated)
 -Can receive notification for Whatsapp, Gmail, Telegram, Facebook, Instagram, and others. (Can modificated)
 -Messeges(Notification) are encrypted.
+-In the program every minute it ask for the computer ip until get computer's ip.
+-In the app every minute it ask for the text in the gist until get text for gist.
 
 Needs for working:
 -Smarthphone and Computer(PC, Laptop, etc).
@@ -15,5 +17,5 @@ Needs for working:
 Technollogy used:
 -Android Studio (Kotlin)
 -Python
--Github gits
+-Github gist
 -Sockets
