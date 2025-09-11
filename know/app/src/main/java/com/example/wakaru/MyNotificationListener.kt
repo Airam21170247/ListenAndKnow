@@ -74,7 +74,7 @@ class MyNotificationListener : NotificationListenerService() {
                 socket.connect(address, 2000)
 
                 // Clave derivada del SHA-256 de la frase
-                val secret = "dudda&alda"
+                val secret = "(Password for encryption)"
                 val key = MessageDigest.getInstance("SHA-256").digest(secret.toByteArray(Charsets.UTF_8))
                 val aesKey = SecretKeySpec(key, "AES")
 

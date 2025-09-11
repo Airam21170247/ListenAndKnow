@@ -7,14 +7,63 @@ from datetime import time
 import socket
 import threading
 import tkinter as tk
+import requests
 
 # Derivar clave AES de la frase proporcionada
-frase = "dudda&alda"
+frase = "(Password for encryption)"
 clave = hashlib.sha256(frase.encode()).digest()  # 32 bytes para AES-256
 
 # Crear root oculto para segundo plano
 root = tk.Tk()
 root.withdraw()  # Oculta completamente la ventana raíz, para siempre
+
+# --- Configuración ---
+GIST_ID = "(Your Gist ID)"  # ID del Gist
+FILENAME = "(Your Gist file name with extension (Like, .txt))"        # nombre del archivo dentro del gist
+TOKEN = "(Your Gist Token)"     # tu token personal con permiso gist
+
+# --- Obtener IP privada ---
+def get_ip():
+    while True:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            s.close()
+            if ip:  # si obtuvo una IP válida
+                return ip
+        except:
+            pass
+        finally:
+            s.close()
+
+        print("❌ No se pudo obtener la IP. Reintentando en 1 minuto...")
+        time.sleep(60)  # esperar 60 segundos antes de reintentar
+
+pc_ip = get_ip()
+print("IP de la PC:", pc_ip)
+
+# --- Actualizar el Gist ---
+url = f"https://api.github.com/gists/{GIST_ID}"
+headers = {"Authorization": f"token {TOKEN}"}
+data = {
+    "files": {
+        FILENAME: {
+            "content": pc_ip
+        }
+    }
+}
+
+response = requests.patch(url, json=data, headers=headers)
+
+if response.status_code == 200:
+    print("Gist actualizado correctamente.")
+    print("URL raw para Android:")
+    print(f"https://gist.githubusercontent.com/raw/{GIST_ID}/{FILENAME}")
+else:
+    print("Error al actualizar gist:", response.status_code, response.text)
+
+
 
 # Mostrar notificación animada tipo push
 def mostrar_notificacion(texto):
