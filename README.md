@@ -5,4 +5,15 @@ Codes Explication:
 -After 22:00 hrs, python program killself.
 -Do not receive notification for app that it's name have "music". (Can modificated)
 -Can receive notification for Whatsapp, Gmail, Telegram, Facebook, Instagram, and others. (Can modificated)
--Messeges(Notification) are encryptated.
+-Messeges(Notification) are encrypted.
+
+Needs for working:
+-Smarthphone and Computer(PC, Laptop, etc).
+-Smarthphone and Computer in the same LAN(with Wifi).
+-Accept that app (Android) and program (Python) work in background.
+
+Technollogy used:
+-Android Studio (Kotlin)
+-Python
+-Github gits
+-Sockets
